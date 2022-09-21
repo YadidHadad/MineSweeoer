@@ -27,6 +27,7 @@ var gDate
 var gTimerInterval
 var gBoard = []
 var gAllCells = []
+var gFirstClickNoMineArea = []
 var gLevel = {
     SIZE: LEVEL_EASY_SIZE,
     MINES: LEVEL_EASY_MINES,
@@ -49,8 +50,7 @@ function initGame() {
     gGame.isOn = true
 
     gBoard = buildBoard()
-    setMinesNegsCount(gBoard)
-    renderBoard(gBoard)
+    renderBoard()
     console.table(gBoard)
 }
 
@@ -125,13 +125,14 @@ function countNegsMines(iIdx, jIdx) {
 
     return minesCount
 }
+
 // Render the board as a <table> to the page
 
-function renderBoard(board) {
+function renderBoard() {
     var strHtml = ''
 
-    for (var i = 0; i < board.length; i++) {
-        var row = board[i]
+    for (var i = 0; i < gBoard.length; i++) {
+        var row = gBoard[i]
         strHtml += '<tr>\n'
 
         for (var j = 0; j < row.length; j++) {
@@ -160,6 +161,15 @@ function cellClicked(elCell, event) {
         gDate = new Date();
         gTimerInterval = setInterval(currTime, 31)
         gGame.isOn = true
+
+        if (event.button === 0) {
+
+            firstClickArea(elCell)
+            setMinesNegsCount(gBoard)
+            renderBoard(gBoard)
+
+        }
+
     }
 
     var id = elCell.getAttribute('id').split('-')
@@ -169,6 +179,7 @@ function cellClicked(elCell, event) {
     var j = +id[2]
     // console.log(i, j)
     // console.log()
+
     if (gBoard[i][j].isShown) return
 
     if (event.button === 2) {
@@ -205,6 +216,33 @@ function cellClicked(elCell, event) {
         checkGameOver()
     }
 }
+
+
+function firstClickArea(elCell) {
+
+    var id = elCell.getAttribute('id').split('-')
+    console.log(id)
+
+    var iIdx = +id[1]
+    var jIdx = +id[2]
+
+    for (let i = -1 + iIdx; i < iIdx + 2; i++) {
+        for (let j = -1 + jIdx; j < jIdx + 2; j++) {
+
+            for (let t = 0; t < gAllCells.length; t++) {
+
+                if (gAllCells[t].i === i && gAllCells[t].j === j) gAllCells.splice(t, 1)
+
+            }
+            // gFirstClickNoMineArea.push(selectorConstructor(i, j))
+        }
+    }
+}
+
+
+
+
+
 // Called on right click to mark a cell (suspected to be a mine)
 // Search the web (and implement) how to hide the
 // context menu on right click
@@ -306,8 +344,8 @@ function expandShown(iIdx, jIdx) { //{0, 0}
 //a function set level before buildboard is called, receives board size and mines count
 
 
-function updateLevel(level) {
-    switch (level) {
+function updateLevel(elBtn, level) {
+    switch (elBtn, level) {
         case 0:
             gLevel.SIZE = LEVEL_EASY_SIZE
             gLevel.MINES = LEVEL_EASY_MINES
@@ -323,6 +361,9 @@ function updateLevel(level) {
         default:
             break;
     }
+
+    var elBtnDropdown = document.querySelector('.dropbtn')
+    elBtnDropdown.innerText = elBtn.innerText
 
 
     gBoard = []
