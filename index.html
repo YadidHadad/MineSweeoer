@@ -10,22 +10,42 @@
 </head>
 
 <body onload="initGame()">
+    <div class="status-bar">
 
-    <table>
-        <thead class="status-bar">
+        <div class="timer">Timer:<span> 0.000</span></div>
 
-        </thead>
-        <tbody class="game-board">
+        <div class="dropdown" style="float:left;">
+            <button class="dropbtn">Easy</button>
+            <div class="dropdown-content" style="left:0;">
+                <!-- <a href="#">Easy</a> -->
+                <!-- <a href="#">Medium</a> -->
+                <!-- <a href="#">Hard</a> -->
+                <div onclick="updateLevel(0)">Easy</div>
+                <div onclick="updateLevel(1)">Medium</div>
+                <div onclick="updateLevel(2)">Hard</div>
+            </div>
+        </div>
 
-        </tbody>
-    </table>
+        <table>
+            <!-- <thead>
+            <tr>
+                <td colspan="100%" class="status-bar" class="dropdown">
+
+                </td>
+            </tr>
+        </thead> -->
+            <tbody class="game-board">
+
+            </tbody>
+        </table>
 
 
 
 
 
-    <script src="./js/main.js"></script>
-    <script src="./js/util.js"></script>
+
+        <script src="./js/main.js"></script>
+        <script src="./js/util.js"></script>
 </body>
 
 </html>
