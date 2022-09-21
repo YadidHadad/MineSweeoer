@@ -1,16 +1,17 @@
 body {
     position: fixed;
     width: 504px;
-    margin: 25%;
+    margin-left: 50%;
     margin-top: 5px;
     box-sizing: content-box;
     background-color: rgb(49, 77, 162);
 
-    /* transform: translate(-50%, -50%); */
+    transform: translate(-50%);
 
 }
 
 div.container {
+
     position: relative;
     width: fit-content;
     height: 647px;
@@ -41,6 +42,18 @@ h1 {
 
 }
 
+.table-background {
+    position: absolute;
+    width: 504px;
+    min-height: 504px;
+    background-color: #4a752c;
+    top: 55px;
+    z-index: -50;
+    border-radius: 10px;
+    opacity: 0.5;
+
+}
+
 h2.gameover {
     /* position: relative; */
     /* float: right; */
@@ -48,9 +61,8 @@ h2.gameover {
     /* top: 50%; */
     /* z-index: 50px; */
     position: absolute;
-    display: block;
-    top: 300px;
-    left: 50%;
+    /* display: blosck; */
+    margin: 50%;
     /* margin: -100px 0 0 0; */
     /* height: 200px; */
     width: 400px;
@@ -80,9 +92,10 @@ h2.smiley {
 
 
 table {
+    position: absolute;
 
-    margin: auto;
-    margin-top: 10px;
+    margin: 50%;
+    /* margin-top: 10px; */
     width: max-content;
     border-collapse: collapse;
     background-color: white;
@@ -90,6 +103,8 @@ table {
     /* border-radius: 1em; */
     /* border-spacing: 0 15px; */
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    transform: translate(-50%, -50%);
+
 
 
 }
@@ -168,6 +183,7 @@ td:hover {
     /* margin: auto; */
     /* margin-top: 0px; */
     /* height: 50px; */
+    z-index: 10;
 }
 
 
