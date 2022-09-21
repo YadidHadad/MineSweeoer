@@ -213,8 +213,8 @@ function cellClicked(elCell, event) {
 
         var bgcColor = (i + j) % 2 ? '#e5c29f' : '#d7b899'
         elCell.style.backgroundColor = bgcColor
-        checkGameOver()
     }
+    checkGameOver()
 }
 
 
@@ -262,6 +262,7 @@ function cellMarked(elCell, i, j) {
         elCell.innerHTML = EMPTY
 
     }
+    checkGameOver()
 }
 
 
@@ -379,6 +380,13 @@ function resetGame() {
     gGame.markedCount = gLevel.MINES
     gGame.shownCount = (gLevel.SIZE ** 2) - gLevel.MINES
 
+    var elDiv = document.querySelector('.gameover')
+    elDiv.classList.add('hidden')
+
+    var elDivSmiley = document.querySelector('.smiley')
+    elDivSmiley.innerText = '😀'
+
+
     return {
         isOn: false,
         shownCount: (gLevel.SIZE ** 2) - gLevel.MINES,
@@ -404,6 +412,15 @@ function gameOver() {
     clearInterval(gTimerInterval)
     gGame.isOn = false
     console.log('GAME OVER CHANGE IN DOM')
+
+    var elDiv = document.querySelector('.gameover')
+
+    elDiv.innerText = (gGame.markedCount === 0 && gGame.shownCount === 0) ? 'You Saved the Planet!' : 'BOOM! - You dead!'
+
+    elDiv.classList.remove('hidden')
+
+    var elDivSmiley = document.querySelector('.smiley')
+    elDivSmiley.innerText = (gGame.markedCount === 0 && gGame.shownCount === 0) ? '😎' : '🤯'
 
 }
 

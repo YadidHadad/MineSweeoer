@@ -10,34 +10,42 @@
 </head>
 
 <body onload="initGame()">
-    <div class="status-bar">
+    <div calss="container">
 
-        <div class="timer">Timer:<span> 0.000</span></div>
 
-        <div class="dropdown" style="float:left;">
-            <button class="dropbtn">Easy</button>
-            <div class="dropdown-content" style="left:0;">
-                <!-- <a href="#">Easy</a> -->
-                <!-- <a href="#">Medium</a> -->
-                <!-- <a href="#">Hard</a> -->
-                <div onclick="updateLevel(this, 0)">Easy</div>
-                <div onclick="updateLevel(this, 1)">Medium</div>
-                <div onclick="updateLevel(this, 2)">Hard</div>
+        <h2 class="smiley" onclick="initGame()"><span> </span></h2>
+        <h1>Mine Sweeper!</h1>
+        <div class="status-bar">
+
+            <div class="timer">Timer:<span> 0.000</span></div>
+
+            <div class="dropdown" style="float:left;">
+                <button class="dropbtn">Easy</button>
+                <div class="dropdown-content" style="left:0;">
+                    <!-- <a href="#">Easy</a> -->
+                    <!-- <a href="#">Medium</a> -->
+                    <!-- <a href="#">Hard</a> -->
+                    <div onclick="updateLevel(this, 0)">Easy</div>
+                    <div onclick="updateLevel(this, 1)">Medium</div>
+                    <div onclick="updateLevel(this, 2)">Hard</div>
+                </div>
             </div>
+
+            <table>
+                <!-- <thead>
+                    <tr>
+                        <td colspan="100%" class="status-bar" class="dropdown">
+                            
+                        </td>
+                    </tr>
+                </thead> -->
+                <tbody class="game-board">
+
+                </tbody>
+            </table>
         </div>
 
-        <table>
-            <!-- <thead>
-            <tr>
-                <td colspan="100%" class="status-bar" class="dropdown">
-
-                </td>
-            </tr>
-        </thead> -->
-            <tbody class="game-board">
-
-            </tbody>
-        </table>
+        <h2 class="gameover hidden">Game Over</h2>
 
 
 
