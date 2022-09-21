@@ -207,6 +207,7 @@ function checkGameOver() {
 // not only that cell, but also its neighbors.
 function expandShown(iIdx, jIdx) { //{0, 0}
 
+    if (gBoard[iIdx][jIdx].minesAroundCount === 0 && gBoard[iIdx][jIdx].isShown === true) return
     //update model
     gBoard[iIdx][jIdx].isShown = true
 
@@ -224,8 +225,8 @@ function expandShown(iIdx, jIdx) { //{0, 0}
     console.log(iIdx, jIdx, selector, gBoard[iIdx][jIdx].isShown)
 
     if (gBoard[iIdx][jIdx].minesAroundCount !== 0) return
-    // if (gBoard[iIdx][jIdx].minesAroundCount !== 0 || (gBoard[iIdx][jIdx].minesAroundCount !== 0 && gBoard[iIdx][jIdx].isShown === true)) return null
 
+    // if (gBoard[iIdx][jIdx].minesAroundCount !== 0 || (gBoard[iIdx][jIdx].minesAroundCount !== 0 && gBoard[iIdx][jIdx].isShown === true)) return null
     for (var i = iIdx - 1; i < iIdx + 2; i++) {
         for (var j = jIdx - 1; j < jIdx + 2; j++) { // {-1, -1 }
             console.log('loop', i, j)
@@ -235,8 +236,6 @@ function expandShown(iIdx, jIdx) { //{0, 0}
 
             } else {
                 expandShown(i, j)
-                return
-
             }
         }
     }
