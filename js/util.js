@@ -1,7 +1,7 @@
 'use strict'
 
 //starts a timer from the moment of first click
-function currTime() {
+function timer() {
     var diff = Date.now() - gDate
     var inSeconds = (diff / 1000).toFixed(2)
 
@@ -40,16 +40,17 @@ function notAvailableFeature() {
     }, 2500);
 }
 
-function alertUser(selector, sentence) {
-    var elDiv = document.querySelector(selector)
+function alertUser(sentence) {
+    var elDiv = document.querySelector('.alert')
     elDiv.innerText = sentence
     elDiv.classList.remove('hidden')
 
     setTimeout(() => {
 
-        var elDiv = document.querySelector(selector)
+        var elDiv = document.querySelector('.alert')
         elDiv.classList.add('hidden')
 
-    }, 2000);
+    }, 3000);
 
 }
+
