@@ -97,11 +97,9 @@ function createCell() {
 
 // Count mines around each cell and set the cell's minesAroundCount
 function setMinesNegsCount(board) {
-
-
-
     for (var i = 0; i < gLevel.SIZE; i++) {
         for (var j = 0; j < gLevel.SIZE; j++) {
+            console.log(i, j)
 
             board[i][j].minesAroundCount = countNegsMines(i, j)
         }
@@ -168,33 +166,19 @@ function cellClicked(elCell, event) {
         initHintMode(elCell)
         return
     }
+
     if (gManualMinesMode === true) {
-        if (gManualMinesModeCount === gLevel.MINES) {
-            clearInterval(gTimerInterval)
-            gDate = new Date()
-            gTimerInterval = setInterval(timer, 31)
 
-            gGame.isOn = true
-            gManualMinesMode = false
+        console.log('clicked')
+        setManuelMines(elCell)
+        return
 
-
-            if (event.button === 0) {
-                setMinesNegsCount(gBoard)
-                renderBoard(gBoard)
-            }
-        } else {
-
-            console.log('clicked')
-            setManuelMines(elCell)
-            return
-        }
     }
 
     if (gGame.secsPassed === 0) {
         clearInterval(gTimerInterval)
         gDate = new Date();
         gTimerInterval = setInterval(timer, 31)
-
 
         gGame.isOn = true
 
@@ -261,8 +245,6 @@ function cellClicked(elCell, event) {
             gBoard[i][j].isShown = true
             --gGame.shownCount
             gCellsToUndo.push([selector])
-
-
         }
         var bgcColor = (i + j) % 2 ? '#e5c29f' : '#d7b899'
         elCell.style.backgroundColor = bgcColor
@@ -338,9 +320,9 @@ function expandShown(iIdx, jIdx) { //{0, 0}
         elCell.classList.add('content-shown')
         elCell.innerHTML = gBoard[iIdx][jIdx].minesAroundCount === 0 ? EMPTY : gBoard[iIdx][jIdx].minesAroundCount
 
-        //recursion
     }
 
+    //recursion
     if (gBoard[iIdx][jIdx].minesAroundCount !== 0) return
 
     for (var i = iIdx - 1; i < iIdx + 2; i++) {
@@ -422,16 +404,11 @@ function resetGame() {
     var elSpanLives = document.querySelector('.lives span')
     elSpanLives.innerText = gGame.lifesLeft
 
-
     if (gManualMinesMode === false) {
         var elBtn = document.querySelector('.manual-mines')
         elBtn.classList.remove('manual-mines-mode')
         elBtn.removeAttribute('disabled')
-
-
     }
-
-
 
     return {
         isOn: false,
@@ -658,15 +635,10 @@ function undoLastReveal() {
 function setManuelMines(elCell = null) {
 
     if (elCell === null) {
-        console.log('in set manual')
         gManualMinesMode = true
-
         var elBtn = document.querySelector('.manual-mines')
         elBtn.classList.add('manual-mines-mode')
-
-
-        alertUser(`Manaul mode  is on \n Set ${gLevel.MINES} mines manualy!`)
-        console.log('setManual')
+        alertUser(`Manaul mode is on\nSet ${gLevel.MINES} mines manualy!`)
         gManualMinesModeCount = 0
         initGame()
         return
@@ -698,10 +670,7 @@ function setManuelMines(elCell = null) {
             elCell.innerText = EMPTY
         }, 2000);
 
-    } else {
-        console.log('completed mines')
     }
-    console.log('mine is set')
 
     if (gManualMinesModeCount === gLevel.MINES) {
         alertUser(`All mines are set!`)
@@ -710,6 +679,15 @@ function setManuelMines(elCell = null) {
         elBtn.classList.remove('.manual-mines-mode')
         elBtn.setAttribute('disabled', '')
 
+        setMinesNegsCount(gBoard)
+        renderBoard(gBoard)
+
+        clearInterval(gTimerInterval)
+        gDate = new Date()
+        gTimerInterval = setInterval(timer, 31)
+
+        gGame.isOn = true
+        gManualMinesMode = false
 
     }
 }
