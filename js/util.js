@@ -39,3 +39,17 @@ function notAvailableFeature() {
         elDiv.classList.add('hidden')
     }, 2500);
 }
+
+function alertUser(selector, sentence) {
+    var elDiv = document.querySelector(selector)
+    elDiv.innerText = sentence
+    elDiv.classList.remove('hidden')
+
+    setTimeout(() => {
+
+        var elDiv = document.querySelector(selector)
+        elDiv.classList.add('hidden')
+
+    }, 2000);
+
+}

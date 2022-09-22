@@ -28,6 +28,8 @@ const SAFE_CELL = '🔐'
 
 //global variables
 var gHintMode = false
+var gManualMinesMode = false
+var gManualMinesModeCount = EMPTY
 var gSafeClicks = 3
 var gDate
 var gTimerInterval
@@ -95,7 +97,8 @@ function createCell() {
 
 // Count mines around each cell and set the cell's minesAroundCount
 function setMinesNegsCount(board) {
-    setRandomMines(board)
+
+
 
     for (var i = 0; i < gLevel.SIZE; i++) {
         for (var j = 0; j < gLevel.SIZE; j++) {
@@ -107,6 +110,8 @@ function setMinesNegsCount(board) {
 
 //setting mines randomly
 function setRandomMines(board) {
+
+    if (gManualMinesMode === true) return
     var minesCount = gLevel.MINES
 
     while (minesCount > 0) {
@@ -163,6 +168,37 @@ function cellClicked(elCell, event) {
         initHintMode(elCell)
         return
     }
+    if (gManualMinesMode === true) {
+        if (gManualMinesModeCount === 0) {
+
+            gDate = new Date();
+            gTimerInterval = setInterval(currTime, 31)
+            gGame.isOn = true
+            gManualMinesMode = false
+            alertUser('.alert', `All mines are set!`)
+
+            console.log('backtonormal')
+
+
+            var elBtn = document.querySelector('.manual-mines')
+            elBtn.classList.remove('.manual-mines-mode')
+            elBtn.setAttribute('disabled', '')
+
+
+            if (event.button === 0) {
+
+                setMinesNegsCount(gBoard)
+                renderBoard(gBoard)
+            }
+        } else {
+            var elBtn = document.querySelector('.manual-mines')
+            elBtn.classList.add('manual-mines-mode')
+
+            console.log('clicked')
+            setManuelMines(elCell)
+            return
+        }
+    }
 
     if (gGame.secsPassed === 0) {
         gDate = new Date();
@@ -170,8 +206,8 @@ function cellClicked(elCell, event) {
         gGame.isOn = true
 
         if (event.button === 0) {
-
             firstClickArea(elCell)
+            setRandomMines(gBoard)
             setMinesNegsCount(gBoard)
             renderBoard(gBoard)
         }
@@ -355,6 +391,8 @@ function updateLevel(elBtn, level) {
     var elSpanLives = document.querySelector('.lives span')
     elSpanLives.innerText = gGame.lifesLeft
 
+    gManualMinesMode = false
+
     gBoard = []
     initGame()
 }
@@ -385,6 +423,8 @@ function resetGame() {
     var elBtn = document.querySelector('.safe-click')
     elBtn.innerText = 'SAFE CLICKS 3'
     elBtn.removeAttribute('disabled')
+
+    // gManualMinesMode = false
 
 
     return {
@@ -604,3 +644,50 @@ function undoLastReveal() {
     }
 
 }
+
+function setManuelMines(elCell = null) {
+
+    if (elCell === null) {
+        gManualMinesMode = true
+
+        alertUser('.alert', `Set ${gLevel.MINES} mines manualy!`)
+        console.log('setManual')
+        gManualMinesModeCount = gLevel.MINES
+        initGame()
+        return
+    }
+
+    console.log(gLevel.MINES)
+
+    if (gManualMinesModeCount > 0) {
+
+        var id = elCell.getAttribute('id').split('-')
+
+        var i = +id[1]
+        var j = +id[2]
+
+        if (gBoard[i][j].isMine === true) return
+
+        gBoard[i][j].isMine = true
+
+        for (let t = 0; t < gAllCells.length; t++) {
+
+            if (gAllCells[t].i === i && gAllCells[t].j === j) gAllCells.splice(t, 1)
+
+        }
+        --gManualMinesModeCount
+        console.log(gManualMinesModeCount)
+
+        elCell.innerText = '💣'
+        setTimeout(() => {
+            elCell.innerText = EMPTY
+
+
+        }, 2000);
+
+    } else {
+        console.log('completed mines')
+    }
+    console.log('mine is set')
+}
+

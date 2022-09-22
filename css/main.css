@@ -315,3 +315,22 @@ button[disabled] {
     background-color: #535352;
     color: #000000;
 }
+
+.alert {
+    position: absolute;
+    background-color: rgb(234, 234, 234);
+    color: rgb(47, 47, 47);
+    border: 1px black solid;
+    font-size: 16px;
+    text-align: center;
+    width: max-content;
+    padding: 10px 40px;
+    margin: auto;
+    margin-left: 50%;
+    margin-top: 50%;
+    border-radius: 10px;
+    /* margin-top: 80px; */
+    z-index: 9999;
+    transform: translate(-50%);
+
+}
