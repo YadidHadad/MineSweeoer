@@ -11,13 +11,17 @@
 
 <body onload="initGame()">
     <div calss="container">
-
-
         <h2 class="smiley" onclick="initGame()"><span> </span></h2>
         <h1>Mine Sweeper!</h1>
-        <div class="status-bar">
 
-            <div class="timer">Timer:<span> 0.000</span></div>
+        <div class="status-bar">
+            <div class="timer">Timer:<span> 0.00</span></div>
+
+            <div class="lives-bar">
+                <div class="lives">
+                    ❤️<span>0</span>
+                </div>
+            </div>
 
             <div class="dropdown" style="float:left;">
                 <button class="dropbtn">Easy</button>
@@ -31,29 +35,46 @@
                 </div>
             </div>
 
-
             <table>
-                <!-- <thead>
-                    <tr>
-                        <td colspan="100%" class="status-bar" class="dropdown">
-                            
-                        </td>
-                    </tr>
-                </thead> -->
+
                 <tbody class="game-board">
 
                 </tbody>
             </table>
+
             <div class="table-background">
             </div>
         </div>
-
-
-
-
     </div>
+
     <h2 class="gameover hidden">Game Over</h2>
 
+    <div class="extra-features">
+        <button class="hints" onclick="initHintMode(null)">
+            HINTS<span></span>
+        </button>
+        <button class="safe-click" onclick="safeCell(this)">
+            SAFE CLICKS 3
+        </button>
+        <button class="undo" onclick="undoLastReveal()">
+            UNDO<span></span>
+        </button>
+        <button class="seven-boom unavailable" onclick="notAvailableFeature()">
+            7 BOOM<span></span>
+        </button>
+        <button class="manual-mines unavailable" onclick="notAvailableFeature()">
+            MINE THE MINES<span></span>
+        </button>
+        <button class="exterminator unavailable" onclick="notAvailableFeature()">
+            EXTERMINATOR<span></span>
+        </button>
+        <button class="mega-hint unavailable" onclick="notAvailableFeature()">
+            MEGA HINT<span></span>
+        </button>
+    </div>
+
+    <h2 class="gameover hidden">Game Over</h2>
+    <h2 class="development hidden">Feature is under development</h2>
 
     <script src="./js/main.js"></script>
     <script src="./js/util.js"></script>
