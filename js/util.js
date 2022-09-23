@@ -18,7 +18,7 @@ function getRandomInt(min, max) {
 }
 
 function getRandomIntInclusive(min, max) {
-    min = Math.ceil(min);setmNUA
+    min = Math.ceil(min); setmNUA
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1) + min); // The maximum is inclusive and the minimum is inclusive
 }
@@ -30,7 +30,7 @@ function randomColor() {
     return pastel
 }
 
-function notAvailableFeature() {
+function unAvailableFeature() {
     var elDiv = document.querySelector('.development')
     elDiv.classList.remove('hidden')
 
@@ -52,5 +52,12 @@ function alertUser(sentence) {
 
     }, 3000);
 
+}
+
+function darkMode(elBtn) {
+    var element = document.body;
+    element.classList.toggle("dark-mode");
+
+    elBtn.innerText = (elBtn.innerText === 'DARK MODE') ? 'LIGHT MODE' : 'DARK MODE'
 }
 
