@@ -530,7 +530,7 @@ function revealMines() {
 //initiate hint mode
 function initHintMode(elCell) {
 
-    if (gGame.hintsLeft <= 0) return
+    if (gGame.hintsLeft < 0) return
 
     if (elCell === null) {
         if (gHintMode) return
@@ -542,16 +542,13 @@ function initHintMode(elCell) {
         switch (gGame.hintsLeft) {
             case 2:
                 elBtn.innerText = 'HINTS LEFT: ' + HINT + HINT
-
                 break;
             case 1:
                 elBtn.innerText = 'HINTS LEFT: ' + HINT
-
                 break;
             case 0:
                 elBtn.innerText = 'NO MORE HINTS'
                 elBtn.setAttribute('disabled', '')
-
                 break;
 
             default:
@@ -786,7 +783,7 @@ function sevenBoom() {
 }
 
 function megaHint(gMegaHintModeAreaClicks = null) {
-    if (gMinesAreSet === false) {
+    if (gMinesAreSet === false || gGame.isOn === false) {
         alertUser('Start playing\nor set mines manualy to continue')
         return
     }
@@ -873,17 +870,18 @@ function exterminator() {
         var randomIdx = getRandomInt(0, gAllMinesCells.length)
         var mineCoordsToRemove = gAllMinesCells[randomIdx]
 
-        if (gBoard[mineCoordsToRemove.i][mineCoordsToRemove.j].isShown) continue
+        if (gBoard[mineCoordsToRemove.i][mineCoordsToRemove.j].isShown || gBoard[mineCoordsToRemove.i][mineCoordsToRemove.j].isMarked) continue
         else {
             gBoard[mineCoordsToRemove.i][mineCoordsToRemove.j].isMine = false
             gAllMinesCells.splice(randomIdx, 1)
-            gGame.markedCount -= 1
+            --gGame.markedCount
+            ++gGame.shownCount
             i++
 
         }
     }
 
-    countNegsMines(gBoard)
+    setMinesNegsCount(gBoard)
 
     for (let i = 0; i < gBoard.length; i++) {
         for (let j = 0; j < gBoard[0].length; j++) {
@@ -906,8 +904,5 @@ function exterminator() {
     var elBtn = document.querySelector('.exterminator')
     elBtn.setAttribute('disabled', '')
 
-
-
     alertUser('Extermination completed')
-
 }

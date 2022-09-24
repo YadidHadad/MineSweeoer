@@ -411,6 +411,13 @@ button[disabled] {
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
+footer {
+    position: absolute;
+    margin-left: 100px;
+    margin-top: 670px;
+    text-align: center;
+}
+
 /* animations */
 
 @keyframes pulse {

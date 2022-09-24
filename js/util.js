@@ -62,8 +62,12 @@ function showHighScores() {
 
     var elDiv = document.querySelector('.best-score-list')
     elDiv.classList.toggle('hidden')
+
     var elTable = document.querySelector('table')
     elTable.classList.toggle('hidden')
+
+    var elDiv = document.querySelector('.gameover')
+    if (!elDiv.classList.contains('hidden')) elDiv.classList.add('hidden')
 }
 
 //starts a timer from the moment of first click
