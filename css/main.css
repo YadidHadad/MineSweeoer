@@ -81,6 +81,10 @@ h2.smiley {
     border: #4a752c solid 2px;
     user-select: none;
     z-index: 9999;
+    border-radius: 50%;
+    /* animation-name: example;
+    animation-iteration-count: infinite;
+    animation-duration: 4s; */
 }
 
 table {
@@ -150,13 +154,28 @@ td:hover {
     margin-right: auto;
 }
 
-.mine {
-    opacity: 0.8;
+.safe-click-cell {
+    opacity: 0.9;
+    animation-name: flash;
+    animation-iteration-count: infinite;
+    animation-duration: 1s;
 }
 
-.content-shown:after {
-    z-index: 50;
-    box-shadow: 10px 10px lightblue;
+.mine {
+    opacity: 0.9;
+    animation-name: pulse;
+    animation-iteration-count: infinite;
+    animation-duration: 1s;
+}
+
+.content-shown {
+    opacity: 1;
+}
+
+.content-shown-temp {
+    animation-name: flash;
+    animation-iteration-count: infinite;
+    animation-duration: 1s;
 }
 
 .smiley:hover,
@@ -180,7 +199,6 @@ td:hover {
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 100;
 }
-
 
 .lives-bar {
     color: #4a752c;
@@ -235,7 +253,9 @@ td:hover {
 .seven-boom:hover,
 .manual-mines:hover,
 .exterminator:hover,
-.mega-hint:hover {
+.mega-hint:hover,
+.color-mode:hover,
+.best-score:hover {
     outline: orange solid 2px;
     border-radius: 10px;
 }
@@ -351,12 +371,89 @@ button[disabled] {
     padding: 10px 40px;
     margin: auto;
     margin-left: 50%;
-    margin-top: 70%;
+    margin-top: 90%;
     border-radius: 10px;
     /* margin-top: 80px; */
     z-index: 9999;
     transform: translate(-50%);
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
 
+#best-score-title,
+#best-score-easy-title,
+#best-score-easy,
+#best-score-medium-title,
+#best-score-medium,
+#best-score-expert-title,
+#best-score-expert {
+
+    padding: 10px;
+    margin-top: -20px;
+}
+
+
+.best-score-list {
+    text-align: center;
+    position: absolute;
+    margin-top: 20%;
+    margin-left: 50%;
+    color: rgb(255, 255, 255);
+    transform: translate(-50%);
+    width: 50%;
+    padding: 20px;
+    display: inline;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.strokeme {
+    color: white;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+/* animations */
+
+@keyframes pulse {
+    0% {
+        scale: 1;
+    }
+
+    50% {
+        scale: 1.2;
+    }
+
+    100% {
+        scale: 1;
+    }
+
+}
+
+@keyframes flash {
+    0% {
+        opacity: 0.5;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.5;
+    }
+
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg)
+    }
+
+    25% {
+        transform: rotate(10deg)
+    }
+
+    /* 100% {
+        transform: rotate(0deg)
+    } */
 
 }

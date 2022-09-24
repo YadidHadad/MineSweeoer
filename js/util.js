@@ -1,5 +1,71 @@
 'use strict'
 
+//setting local storage to keep best results
+function setlocalStorage() {
+
+    if (localStorage.highScoresEasy === undefined) localStorage.setItem('highScoresEasy', 1000)
+    if (localStorage.highScoresMedium === undefined) localStorage.setItem('highScoresMedium', 1000)
+    if (localStorage.highScoresExpert === undefined) localStorage.setItem('highScoresExpert', 1000)
+}
+
+//checking if current high score is higher tham the saved one
+function checkHighScore(score) {
+
+    setlocalStorage()
+
+    var bestScore = ''
+    var storageSelector
+
+    switch (gLevel.SIZE) {
+        case LEVEL_EASY_SIZE:
+            storageSelector = 'highScoresEasy'
+            bestScore = localStorage.getItem('highScoresEasy') ?? []
+            break;
+        case LEVEL_MEDIUM_SIZE:
+            storageSelector = 'highScoresMedium'
+            bestScore = localStorage.getItem('highScoresMedium') ?? []
+            break;
+        case LEVEL_EXPERT_SIZE:
+            storageSelector = 'highScoresExpert'
+            bestScore = localStorage.getItem('highScoresExpert') ?? []
+            break;
+        default:
+            break;
+    }
+
+    if (+score < +bestScore) {
+
+        localStorage.setItem(storageSelector, score)
+        // saveHighScore(score, bestScore)
+        showHighScores();
+        alertUser(`New Best Score!`)
+    } else {
+        alertUser(`Too bad! You didn't beat the best!`)
+    }
+}
+
+function showHighScores() {
+    var bestScore
+
+    document.getElementById('best-score-easy').innerText = localStorage.getItem('highScoresEasy')
+    document.getElementById('best-score-medium').innerText = localStorage.getItem('highScoresMedium')
+    document.getElementById('best-score-expert').innerText = localStorage.getItem('highScoresExpert')
+
+
+    changeBGC('#best-score-easy')
+    changeBGC('#best-score-easy-title')
+    changeBGC('#best-score-medium')
+    changeBGC('#best-score-medium-title')
+    changeBGC('#best-score-expert')
+    changeBGC('#best-score-expert-title')
+    changeBGC('#best-score-title')
+
+    var elDiv = document.querySelector('.best-score-list')
+    elDiv.classList.toggle('hidden')
+    var elTable = document.querySelector('table')
+    elTable.classList.toggle('hidden')
+}
+
 //starts a timer from the moment of first click
 function timer() {
     var diff = Date.now() - gDate
@@ -50,7 +116,7 @@ function alertUser(sentence) {
         var elDiv = document.querySelector('.alert')
         elDiv.classList.add('hidden')
 
-    }, 3000);
+    }, 2000);
 
 }
 
@@ -61,3 +127,7 @@ function darkMode(elBtn) {
     elBtn.innerText = (elBtn.innerText === 'DARK MODE') ? 'LIGHT MODE' : 'DARK MODE'
 }
 
+function changeBGC(selector) {
+    var el = document.querySelector(selector)
+    el.style.backgroundColor = randomColor()
+}
