@@ -170,7 +170,7 @@ function renderBoard() {
 
 // actions to execute after clicking a cell on the board
 function cellClicked(elCell, event) {
-    if (gGame.isOn === false) return
+    if (!gGame.isOn) return
     //------------------
     if (gHintMode) {
         initHintMode(elCell)
@@ -339,7 +339,7 @@ function expandShown(iIdx, jIdx) { //{0, 0}
     if (gBoard[iIdx][jIdx].minesAroundCount === 0 && gBoard[iIdx][jIdx].isShown) return
     //update model
 
-    if (gBoard[iIdx][jIdx].isShown === false && gBoard[iIdx][jIdx].isMarked === false) {
+    if (!gBoard[iIdx][jIdx].isShown && !gBoard[iIdx][jIdx].isMarked) {
         gBoard[iIdx][jIdx].isShown = true
         --gGame.shownCount
         //update DOM
@@ -409,6 +409,7 @@ function resetGame() {
     gGame.secsPassed = 0
     gGame.isOn = false
     gAllEmptyCells = []
+    gAllMinesCells = []
     gCellsToUndo = []
     gExpandStepsRecord = []
     gBoard = []
@@ -783,7 +784,7 @@ function sevenBoom() {
 }
 
 function megaHint(gMegaHintModeAreaClicks = null) {
-    if (gMinesAreSet === false || gGame.isOn === false) {
+    if (!gMinesAreSet || !gGame.isOn) {
         alertUser('Start playing\nor set mines manualy to continue')
         return
     }
@@ -856,7 +857,7 @@ function megaHint(gMegaHintModeAreaClicks = null) {
 }
 
 function exterminator() {
-    if (gMinesAreSet === false) {
+    if (!gMinesAreSet) {
         alertUser('Start playing\nor set mines manualy to continue')
         return
     } else if (gLevel.SIZE === LEVEL_EASY_SIZE) {
